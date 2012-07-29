@@ -1,6 +1,6 @@
 #coding: utf-8
 
-class ConditionType(object):
+class Clause(object):
     # dodać mechanikę Meta
     pass
 
@@ -16,7 +16,7 @@ class ConditionCache(object):
     def register(self, condition):
 #        assert issubclass(condition, ConditionType)  # TODO: duck-type this
         self._registry.setdefault(condition.__module__, []).append(
-                                 [condition.__module__ + condition.__name__,
+                                 [condition.__module__ + '.' + condition.__name__,
                                  getattr(condition, 'verbose_name', condition.__name__)]
         )
 

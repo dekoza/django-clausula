@@ -2,8 +2,9 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django_conditions.base import clauses
+from django_conditions.base import clauses, autodiscover
 
+autodiscover()
 FUNCTION_CHOICES = clauses.choices()
 
 print FUNCTION_CHOICES
@@ -13,7 +14,7 @@ class Condition(models.Model):
     This a concrete condition that will be stored in the database.
     """
     name = models.CharField(_('name'), max_length=250)
-    clause = models.CharField(_('clause'), max_length=250, choices=clauses.choices())
+    clause = models.CharField(_('clause'), max_length=250, choices=FUNCTION_CHOICES)
     param = models.CharField(_('param'), max_length=250, help_text=_('Param to feed the function'))
 
     class Meta:

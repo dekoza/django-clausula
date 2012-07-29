@@ -11,7 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+.. automodule:: django_conditions
 
+.. automodule:: django_conditions.base
+    :members:
 
 Indices and tables
 ==================

@@ -1,21 +1,40 @@
 #coding: utf-8
 
-# Prawdopodobnie trzeba to będzie zrobić zgodnie z podejściem adminowym
+"""
+.. module:: base
+    :synopsis: define basic components of the package
+"""
 
 class ConditionCache(object):
     """
-    Based on django.admin and brabeion.BadgeCache
+    This is a typical registering class.
     """
     def __init__(self):
         self._registry={}
 
     def register(self, condition, name=None):
+        """
+        This method is used to register your statement to the global
+        `clauses` list registry.
+
+        Args:
+            condition: a function that will be called to resolve the condition
+
+        Kwargs:
+            name (str): a name that will be shown in the admin
+        """
         self._registry.setdefault(condition.__module__, []).append(
                                  [condition.__module__ + '.' + condition.__name__,
                                   name if name else condition.__name__]
         )
 
     def choices(self):
+        """
+        This method is used to populate choices field in the admin.
+
+        Returns:
+            a nested list, so you know which clauses belong to which app
+        """
         outer = []
         for key in self._registry.keys():
             inner = []
@@ -31,7 +50,10 @@ clauses = ConditionCache()
 
 def autodiscover():
     """
-    Stolen from django.admin
+    This is shamelessly taken from django.admin.
+
+    This method is used to populate the global `clauses`
+    object with whatever conditions devlopers put in their apps.
     """
 
     import copy

@@ -7,8 +7,6 @@ from django_conditions.base import clauses, autodiscover
 autodiscover()
 FUNCTION_CHOICES = clauses.choices()
 
-print FUNCTION_CHOICES
-
 class Condition(models.Model):
     """
     This a concrete condition that will be stored in the database.
@@ -29,17 +27,16 @@ class Condition(models.Model):
 
     def resolve(self):
         """
-        This is used to import linked class and pass its `resolve` method
-        the object as parameter. It's up to programmer to do with the object
-        whatever is needed (eg. get. `param` value or *_set relations).
-        `resolve` should return boolean value indicating whether the condition
+        This is used to import linked function and pass it the object.
+        It's up to programmer to do with the object whatever is needed
+        (eg. get. `param` value or *_set relations).
+        Function should return boolean value indicating whether the condition
         is met or not.
         """
         from django.utils.importlib import import_module
 
         s = self.clause.split('.')
-        mod, cls = '.'.join(s[:-1]), s[-1]
+        mod, f = '.'.join(s[:-1]), s[-1]
         mod = import_module(mod)
-        cls = getattr(mod, cls)
-        # raise exception if cls has no resolve or fail silently?
-        return cls.resolve(self)
+        f = getattr(mod, f)  # lambda: False to fail silently
+        return f(self)

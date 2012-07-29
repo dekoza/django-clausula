@@ -1,9 +1,5 @@
 #coding: utf-8
 
-class Clause(object):
-    # dodać mechanikę Meta
-    pass
-
 # Prawdopodobnie trzeba to będzie zrobić zgodnie z podejściem adminowym
 
 class ConditionCache(object):
@@ -13,11 +9,10 @@ class ConditionCache(object):
     def __init__(self):
         self._registry={}
 
-    def register(self, condition):
-#        assert issubclass(condition, ConditionType)  # TODO: duck-type this
+    def register(self, condition, name=None):
         self._registry.setdefault(condition.__module__, []).append(
                                  [condition.__module__ + '.' + condition.__name__,
-                                 getattr(condition, 'verbose_name', condition.__name__)]
+                                  name if name else condition.__name__]
         )
 
     def choices(self):
@@ -26,7 +21,8 @@ class ConditionCache(object):
             inner = []
             for choice in self._registry[key]:
                 inner.append(choice)
-            outer.append([key, inner])
+            app_name = '.'.join(key.split('.')[:-1])
+            outer.append([app_name, inner])
         return outer
 
 

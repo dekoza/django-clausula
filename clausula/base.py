@@ -18,14 +18,14 @@ class ConditionCache(object):
         `clauses` list registry.
 
         :param condition: a function that will be called to resolve the condition
+
         :param name: a name that will be shown in the admin
         :type name: string
 
         """
         self._registry.setdefault(condition.__module__, []).append(
                                  [condition.__module__ + '.' + condition.__name__,
-                                  name if name else condition.__name__]
-        )
+                                  name if name else condition.__name__])
 
     def choices(self):
         """

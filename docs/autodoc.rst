@@ -1,10 +1,10 @@
-`django-conditions` internal documentation
-******************************************
+`django-clausula` internal documentation
+****************************************
 
-.. automodule:: django_conditions
+.. automodule:: clausula
 
-.. automodule:: django_conditions.base
+.. automodule:: clausula.base
     :members:
 
-.. automodule:: django_conditions.models
+.. automodule:: clausula.models
     :members:

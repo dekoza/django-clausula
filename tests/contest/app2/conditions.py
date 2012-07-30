@@ -1,5 +1,5 @@
 #coding: utf-8
-from conditions.base import clauses
+from clausula.base import clauses
 
 def resolve(obj):
     "always Fail"

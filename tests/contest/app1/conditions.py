@@ -1,5 +1,5 @@
 #coding: utf-8
-from conditions import clauses
+from clausula import clauses
 
 def day_of_week_clause(obj):
     import datetime

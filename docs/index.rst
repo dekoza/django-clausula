@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to django-conditions's documentation!
-=============================================
+Welcome to django-clausula's documentation!
+===========================================
+
+`Clausula` means `condition` in Latin.
 
 The purpose of this app is to allow adding dynamic conditions to relations
 between objects.
@@ -17,13 +19,13 @@ Let's say you develop an application that will present content to user based
 on various conditions. Gamification comes to mind. Let's say you want to set
 the conditions on a per-user or per-group basis. For example girls get happy
 hours on Saturday and boys get them on Thursdays. Hardcoding that would be a
-bit harsh if you tend to change your mind frequently.
+bit tricky if you tend to change your mind frequently.
 
 
 Usage
 -----
 
-After installing the package and adding 'django_conditions' to INSTALLED_APPS
+After installing the package and adding 'clausula' to INSTALLED_APPS
 you should define some abstract conditions you'd like to use.
 
 Do this by creating a file `conditions.py` in your app. Then you need to
@@ -44,7 +46,7 @@ Full example
 
 `conditions.py`::
 
-    from django_conditions import clauses
+    from clausula import clauses
 
     def day_of_week_clause(obj):
         import datetime

@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django_conditions.base import clauses, autodiscover
+from .base import clauses, autodiscover
 
 autodiscover()
 FUNCTION_CHOICES = clauses.choices()
@@ -20,9 +20,6 @@ class Condition(models.Model):
         verbose_name_plural = _('conditions')
 
     def __unicode__(self):
-        """
-        Preferably object name should be resolved using its `function`'s helper
-        """
         return self.name
 
     def resolve(self):

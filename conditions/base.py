@@ -2,7 +2,7 @@
 
 """
 .. module:: base
-    :synopsis: define basic components of the package
+   :synopsis: define basic components of the package
 """
 
 class ConditionCache(object):
@@ -17,11 +17,10 @@ class ConditionCache(object):
         This method is used to register your statement to the global
         `clauses` list registry.
 
-        Args:
-            condition: a function that will be called to resolve the condition
+        :param condition: a function that will be called to resolve the condition
+        :param name: a name that will be shown in the admin
+        :type name: string
 
-        Kwargs:
-            name (str): a name that will be shown in the admin
         """
         self._registry.setdefault(condition.__module__, []).append(
                                  [condition.__module__ + '.' + condition.__name__,
@@ -32,8 +31,7 @@ class ConditionCache(object):
         """
         This method is used to populate choices field in the admin.
 
-        Returns:
-            a nested list, so you know which clauses belong to which app
+        :rtype: nested list in CHOICES format
         """
         outer = []
         for key in self._registry.keys():
@@ -53,7 +51,7 @@ def autodiscover():
     This is shamelessly taken from django.admin.
 
     This method is used to populate the global `clauses`
-    object with whatever conditions devlopers put in their apps.
+    object with whatever conditions developers put in their apps.
     """
 
     import copy

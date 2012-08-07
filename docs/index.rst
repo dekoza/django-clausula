@@ -21,6 +21,10 @@ the conditions on a per-user or per-group basis. For example girls get happy
 hours on Saturday and boys get them on Thursdays. Hardcoding that would be a
 bit tricky if you tend to change your mind frequently.
 
+.. `Clausula` is meant to be a glue between models (which are concrete) and
+    condition statements. It allows you to concretize your abstract clauses and
+    save them as objects to database. Such objects can be then injected in
+    relations between other objects.
 
 Usage
 -----
@@ -44,6 +48,8 @@ Feel free to experiment and find some hackish uses for this package.
 Full example
 ------------
 
+You run a virutal pub and want to have lower prices on one day.
+
 `conditions.py`::
 
     from clausula import clauses
@@ -57,15 +63,69 @@ Full example
 
     clauses.register(day_of_week_clause, "checks day of week")
 
-Then you should run ``manage.py runserver``, go to the admin page and add
+Now let's see our `models.py`::
+
+    from django.db import models
+    from clausula.models import Condition
+
+    class Bewerage(models.Model):
+        name = models.CharField(max_length=30)
+        normal_price = models.DecimalField(max_digits=7, decimal=2)
+
+
+    class Redeem(models.Model):
+        value = models.DecimalField(max_digits=7, decimal=2)
+        beverage = models.ForeignKey(Beverage)
+        condition = models.ForeignKey(Condition)
+
+A bit of sugar in `admin.py`::
+
+    from django.contrib import admin
+    from .models import (Bewerage, Redeem)
+
+    class RedeemInline(admin.TabularInline):
+        model = Redeem
+
+
+    class BewerageAdmin(admin.ModelAdmin):
+        inlines = [Redeem]
+
+
+    admin.site.register(Bewerage, BewerageAdmin)
+
+Then you should run ``./manage.py syncdb && ./manage.py runserver``, go to the admin page and add
 a Condition. You'll see "checks day of week" in `Clause` list. Fill the name
-and give a day number. Let's say we want to check if this is Sunday:
+and give a day number. Let's say we want to add a `Condition` that triggers on Sunday:
 
 .. figure:: _static/addcondition.png
    :align:  center
 
+You should also add a Beverage with redeem triggered by your "On Sunday" condition.
 
-TO BE CONTINUED
+.. TODO: Add template tag!
+
+Now you can show the price like this::
+
+    {% for brew in beverages %}
+        {% if brew.redeems %}
+            {% for redeem in brew.redeems %}
+                {% if redeem.condition %}
+                    {{redeem.value}}
+                {% else %}
+                    {{brew.price}}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {{brew.price}}
+        {% endif %}
+    {% endfor %}
+
+
+If you change your mind and want to change the day when Redeem triggers -
+just point the ForeignKey to different `Condition`.
+You can also change the `condition` to one based on completely different function -
+it will still trigger appropriately.
+
 
 
 Contents:

@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'clausula',
     'app1',
 #    'app2',
+	'brewer',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -22,8 +22,8 @@ class Condition(models.Model):
 
     """
     name = models.CharField(_('name'), max_length=250)
-    clause = models.CharField(_('clause'), max_length=250, choices=FUNCTION_CHOICES)
-    param = models.CharField(_('param'), max_length=250, help_text=_('Param to feed the function'))
+    clause = models.CharField(_('clause'), max_length=250, choices=FUNCTION_CHOICES, blank=True)
+    param = models.CharField(_('param'), max_length=250, help_text=_('Param to feed the function'), blank=True)
 
     class Meta:
         verbose_name = _('condition')

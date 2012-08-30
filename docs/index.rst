@@ -6,7 +6,10 @@
 Welcome to django-clausula's documentation!
 ===========================================
 
-`Clausula` means `condition` in Latin.
+Name
+----
+
+"Clausula" means "condition" in Latin.
 
 The purpose of this app is to allow adding dynamic conditions to relations
 between objects.
@@ -32,15 +35,16 @@ Usage
 After installing the package and adding 'clausula' to INSTALLED_APPS
 you should define some abstract conditions you'd like to use.
 
-Do this by creating a file `conditions.py` in your app. Then you need to
-import `clauses` registry, define your conditions and register them.
+Do this by creating a file ``conditions.py`` in your app. Then you need to
+import ``clauses`` registry, define your conditions and register them.
 
 Each condition is simply a function that fullows these rules:
 
-* it takes one argument: an `object` (a :class:`Condition` instance)
+* it takes one mandatory argument: an ``object`` (a :class:`Condition` instance)
+* it silently accepts any number of optional arguments (*args, **kwargs)
 * it returns a boolean value
 
-The `object` is guaranteed to have a `param` attribute which holds a string
+The ``object`` is guaranteed to have a ``param`` attribute which holds a string
 which can be used to compute returned boolean value. There can also be some
 relations available as :class:`Condition` subclasses :class:`django.db.models.Model`.
 Feel free to experiment and find some hackish uses for this package.
@@ -97,8 +101,27 @@ If you have any ideas how to extend functionality of this little package,
 a pull request or simply `file a feature request <https://github.com/dekoza/django-clausula/issues>`_.
 
 
+Versioning
+==========
 
-Contents:
+I'd like to follow Semantic Version guidelines.
+
+Releases will be numbered with the following format:
+
+``<major>.<minor>.<patch>``
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major (and resets the minor and patch)
+* New additions without breaking backward compatibility bumps the minor (and resets the patch)
+* Bug fixes and misc changes bumps the patch
+* Major version ``0`` means early development stage
+
+For more information on SemVer, please visit http://semver.org/.
+
+
+Autodoc
+=======
 
 .. toctree::
    :maxdepth: 2

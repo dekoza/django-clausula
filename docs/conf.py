@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# django-conditions documentation build configuration file, created by
+# django-clausula documentation build configuration file, created by
 # sphinx-quickstart on Sun Jul 29 22:04:41 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -41,7 +41,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'django-conditions'
+project = 'django-clausula'
 copyright = '2012, Dominik Kozaczko'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -165,7 +165,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'django-conditionsdoc'
+htmlhelp_basename = 'django-clausuladoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -184,7 +184,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'django-conditions.tex', 'django-conditions Documentation',
+  ('index', 'django-clausula.tex', 'django-clausula Documentation',
    'Dominik Kozaczko', 'manual'),
 ]
 
@@ -214,7 +214,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django-conditions', 'django-conditions Documentation',
+    ('index', 'django-clausula', 'django-clausula Documentation',
      ['Dominik Kozaczko'], 1)
 ]
 
@@ -228,8 +228,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'django-conditions', 'django-conditions Documentation',
-   'Dominik Kozaczko', 'django-conditions', 'One line description of project.',
+  ('index', 'django-clausula', 'django-clausula Documentation',
+   'Dominik Kozaczko', 'django-clausula', 'One line description of project.',
    'Miscellaneous'),
 ]
 

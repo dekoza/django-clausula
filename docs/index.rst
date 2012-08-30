@@ -1,4 +1,4 @@
-.. django-conditions documentation master file, created by
+.. django-clausula documentation master file, created by
    sphinx-quickstart on Sun Jul 29 22:04:41 2012.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -50,81 +50,44 @@ Full example
 
 You run a virutal pub and want to have lower prices on one day.
 
-`conditions.py`::
+``conditions.py``:
+    .. literalinclude:: ../example_project/brew/conditions.py
+       :linenos:
 
-    from clausula import clauses
+Now let's see our ``models.py``:
+    .. literalinclude:: ../example_project/brew/models.py
+       :linenos:
 
-    def day_of_week_clause(obj):
-        import datetime
-        weekday = datetime.date.today().weekday()
-        if weekday == int(obj.param):
-            return True
-        return False
-
-    clauses.register(day_of_week_clause, "checks day of week")
-
-Now let's see our `models.py`::
-
-    from django.db import models
-    from clausula.models import Condition
-
-    class Bewerage(models.Model):
-        name = models.CharField(max_length=30)
-        normal_price = models.DecimalField(max_digits=7, decimal=2)
-
-
-    class Redeem(models.Model):
-        value = models.DecimalField(max_digits=7, decimal=2)
-        beverage = models.ForeignKey(Beverage)
-        condition = models.ForeignKey(Condition)
-
-A bit of sugar in `admin.py`::
-
-    from django.contrib import admin
-    from .models import (Bewerage, Redeem)
-
-    class RedeemInline(admin.TabularInline):
-        model = Redeem
-
-
-    class BewerageAdmin(admin.ModelAdmin):
-        inlines = [Redeem]
-
-
-    admin.site.register(Bewerage, BewerageAdmin)
+A bit of sugar in ``admin.py``:
+    .. literalinclude:: ../example_project/brew/admin.py
+       :linenos:
 
 Then you should run ``./manage.py syncdb && ./manage.py runserver``, go to the admin page and add
-a Condition. You'll see "checks day of week" in `Clause` list. Fill the name
-and give a day number. Let's say we want to add a `Condition` that triggers on Sunday:
+a Condition. You'll see "checks day of week" in :class:`Clause` list. Fill the name
+and give a day number. Let's say we want to add a :class:`Condition` that triggers on Sunday:
 
 .. figure:: _static/addcondition.png
    :align:  center
 
 You should also add a Beverage with redeem triggered by your "On Sunday" condition.
 
-Now you can show the price like this::
 
-    {% load clausula_tags %}
-    {% for brew in beverages %}
-        {% if brew.redeems %}
-            {% for redeem in brew.redeems %}
-                {% check redeem.condition as result %}
-                {% if result %}
-                    {{redeem.value}} (with redeem)
-                {% else %}
-                    {{brew.price}} (normal price)
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            {{brew.price}} (normal price)
-        {% endif %}
-    {% endfor %}
+This is an example template to see if it works:
+    .. literalinclude:: ../example_project/brew/templates/brew/beverage_list.html
+       :language: django
+       :start-after: <body>
+       :end-before: </body>
+       :linenos:
 
+All that's left is ``urls.py`` to tie it all together - let it be an exercise for you ;)
+Anyway you can always just fire ``./manage.py runserver`` from the ``example_project``
+directory and browse to ``http://127.0.0.1:8000/brew/`` :)
 
 .. TODO: Add inclusion template tag as this case may be common.
 
-Now play with `param` and check if it works properly. Try writing another function
-and swap it with the one you used in example. Does it trigger properly? Experiment.
+Now play with ``param`` and check if it works properly. Add some more objects.
+Try writing another function and swap it with the one you used in example.
+Does it trigger properly? Experiment.
 
 Feedback
 ========

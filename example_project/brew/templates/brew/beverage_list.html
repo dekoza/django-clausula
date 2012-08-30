@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{% load clausula_tags %}
+{% for brew in beverages %}
+    {{ brew.name }}:
+    {% if brew.redeem_set.all %}
+        {% for redeem in brew.redeem_set.all %}
+            {% check redeem.condition as result %}
+            {% if result %}
+                (condition met)
+            {% else %}
+                (condition not met)
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        (no redeems)
+    {% endif %}
+{% endfor %}
+</body>
+</html>

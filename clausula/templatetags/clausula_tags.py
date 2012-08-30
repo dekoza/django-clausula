@@ -15,6 +15,8 @@ def check(context, clause, *args, **kwargs):
     and template's context. Params passed via kwargs override their
     context counterparts if any.
     """
-    kw = copy(context)
+    kw ={}
+    for d in context:
+        kw.update(d)
     kw.update(kwargs)
-    return clause(*args, *kw)
+    return clause.resolve(*args, **kw)

@@ -48,5 +48,5 @@ class Condition(models.Model):
         s = self.clause.split('.')
         mod, f = '.'.join(s[:-1]), s[-1]
         mod = import_module(mod)
-        f = getattr(mod, f)  # lambda: False to fail silently
+        f = getattr(mod, f)  # should we use `lambda: False` to fail silently?
         return f(self, *args, **kwargs)

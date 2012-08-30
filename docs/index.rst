@@ -102,29 +102,36 @@ and give a day number. Let's say we want to add a `Condition` that triggers on S
 
 You should also add a Beverage with redeem triggered by your "On Sunday" condition.
 
-.. TODO: Add template tag!
-
 Now you can show the price like this::
 
+    {% load clausula_tags %}
     {% for brew in beverages %}
         {% if brew.redeems %}
             {% for redeem in brew.redeems %}
-                {% if redeem.condition %}
-                    {{redeem.value}}
+                {% check redeem.condition as result %}
+                {% if result %}
+                    {{redeem.value}} (with redeem)
                 {% else %}
-                    {{brew.price}}
+                    {{brew.price}} (normal price)
                 {% endif %}
             {% endfor %}
         {% else %}
-            {{brew.price}}
+            {{brew.price}} (normal price)
         {% endif %}
     {% endfor %}
 
 
-If you change your mind and want to change the day when Redeem triggers -
-just point the ForeignKey to different `Condition`.
-You can also change the `condition` to one based on completely different function -
-it will still trigger appropriately.
+.. TODO: Add inclusion template tag as this case may be common.
+
+Now play with `param` and check if it works properly. Try writing another function
+and swap it with the one you used in example. Does it trigger properly? Experiment.
+
+Feedback
+========
+
+If you have any ideas how to extend functionality of this little package,
+`fork it on github <https://github.com/dekoza/django-clausula>`_ and make
+a pull request or simply `file a feature request <https://github.com/dekoza/django-clausula/issues>`_.
 
 
 

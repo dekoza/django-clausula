@@ -6,13 +6,13 @@
 Welcome to django-clausula's documentation!
 ===========================================
 
+The purpose of this app is to allow adding dynamic conditions to relations
+between objects.
+
 Name
 ----
 
 "Clausula" means "condition" in Latin.
-
-The purpose of this app is to allow adding dynamic conditions to relations
-between objects.
 
 
 How is this useful?
@@ -68,13 +68,9 @@ A bit of sugar in ``admin.py``:
 
 Then you should run ``./manage.py syncdb && ./manage.py runserver``, go to the admin page and add
 a Condition. You'll see "checks day of week" in :class:`Clause` list. Fill the name
-and give a day number. Let's say we want to add a :class:`Condition` that triggers on Sunday:
+and give a day number.
 
-.. figure:: _static/addcondition.png
-   :align:  center
-
-You should also add a Beverage with redeem triggered by your "On Sunday" condition.
-
+You should also add a :class:`Beverage` with redeem triggered by your ``On Sunday`` condition.
 
 This is an example template to see if it works:
     .. literalinclude:: ../example_project/brew/templates/brew/beverage_list.html
